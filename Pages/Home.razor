@@ -2,6 +2,99 @@
 
 <PageTitle>Home</PageTitle>
 
-<h1>Hello, world!</h1>
+<div class="container">
+    <div class="calculator">
+        <div class="display">
+            @currentDisplay
+        </div>
+        <div class="buttons">
+            <button class='btn' @onclick='() => AddDigit("7")'>7</button>
+            <button class='btn' @onclick='() => AddDigit("8")'>8</button>
+            <button class='btn' @onclick='() => AddDigit("9")'>9</button>
+            <button class="btn" @onclick='() => ChooseOperation("/")'>/</button>
+            
+            <button class='btn' @onclick='() => AddDigit("4")'>4</button>
+            <button class='btn' @onclick='() => AddDigit("5")'>5</button>
+            <button class='btn' @onclick='() => AddDigit("6")'>6</button>
+            <button class="btn" @onclick='() => ChooseOperation("*")'>*</button>
+            
+            <button class='btn' @onclick='() => AddDigit("1")'>1</button>
+            <button class='btn' @onclick='() => AddDigit("2")'>2</button>
+            <button class='btn' @onclick='() => AddDigit("3")'>3</button>
+            <button class="btn" @onclick='() => ChooseOperation("-")'>-</button>
 
-Welcome to your new app.
+            <button class="btn" @onclick='() => AddDigit("0")'>0</button>
+            <button class="btn" @onclick="() => Clear()">C</button>
+            <button class="btn" @onclick="() => Calculate()">=</button>
+            <button class="btn" @onclick='() => ChooseOperation("+")'>+</button>
+        </div>
+    </div>
+
+    @code {
+        private string currentDisplay = "0";
+        private string firstOperand = "";
+        private string secondOperand = "";
+        private string selectedOperation = "";
+        private bool isOperationChosen = false;
+
+        // Adds digits to the display
+        void AddDigit(string digit)
+        {
+            if (isOperationChosen)
+            {
+                secondOperand += digit;
+                currentDisplay = secondOperand;
+            }
+            else
+            {
+                firstOperand += digit;
+                currentDisplay = firstOperand;
+            }
+        }
+
+        // Selects the arithmetic operation
+        void ChooseOperation(string operation)
+        {
+            if (!string.IsNullOrEmpty(firstOperand))
+            {
+                selectedOperation = operation;
+                isOperationChosen = true;
+            }
+        }
+
+        // Performs the calculation
+        void Calculate()
+        {
+            if (!string.IsNullOrEmpty(firstOperand) && !string.IsNullOrEmpty(secondOperand))
+            {
+                double result = selectedOperation switch
+                {
+                    "+" => double.Parse(firstOperand) + double.Parse(secondOperand),
+                    "-" => double.Parse(firstOperand) - double.Parse(secondOperand),
+                    "*" => double.Parse(firstOperand) * double.Parse(secondOperand),
+                    "/" => double.Parse(firstOperand) / double.Parse(secondOperand),
+                    _ => 0
+                };
+                currentDisplay = result.ToString();
+                Reset();
+            }
+        }
+
+        // Clears the display and resets the calculator
+        void Clear()
+        {
+            currentDisplay = "0";
+            Reset();
+        }
+
+        // Resets the operands and operation
+        void Reset()
+        {
+            firstOperand = "";
+            secondOperand = "";
+            selectedOperation = "";
+            isOperationChosen = false;
+        }
+    }
+</div>
+
