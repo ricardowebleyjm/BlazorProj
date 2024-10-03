@@ -1,9 +1,9 @@
 <nav class="navbar navbar-expand-lg navbar-light bg-light">
     <div class="container-fluid">
         <!-- Brand/logo -->
-        <a class="navbar-brand" href="#">
+        <a class="navbar-brand" href="/">
             <img src="https://via.placeholder.com/40" alt="Logo" class="d-inline-block align-text-top">
-            MyWebsite
+            BlazorApp
         </a>
 
         <!-- Toggler/collapsible button -->
@@ -15,8 +15,14 @@
         <!-- Navbar links -->
         <div class="collapse navbar-collapse" id="navbarNav">
             <ul class="navbar-nav ms-auto">
+                <div class="nav-item px-3">
+
+                </div>
+
                 <li class="nav-item">
-                    <a class="nav-link active" aria-current="page" href="#">Home</a>
+                    <NavLink class="nav-link" href="counter">
+                        <span class="bi bi-plus-square-fill-nav-menu" aria-hidden="true"></span> Counter
+                    </NavLink>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link" href="#">About</a>
